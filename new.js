@@ -8,16 +8,21 @@ document.addEventListener('DOMContentLoaded', function() {
         return daysOfWeek[dayIndex];
     }
 
-    // Function to get the current UTC time in hours, minutes, and seconds
-    function getCurrentUTCTime() {
+    // Function to update the UTC time in hours, minutes, and seconds
+    function updateUTCTime() {
         const now = new Date();
         const hours = now.getUTCHours().toString().padStart(2, '0');
         const minutes = now.getUTCMinutes().toString().padStart(2, '0');
         const seconds = now.getUTCSeconds().toString().padStart(2, '0');
-        return `${hours}:${minutes}:${seconds}`;
+        document.querySelector('[data-testid="currentUTCTime"]').textContent = `${hours}:${minutes}:${seconds}`;
     }
 
-    // Update the elements with the appropriate data
+    // Elements data
     document.querySelector('[data-testid="currentDayOfTheWeek"]').textContent = getCurrentDayOfWeek();
-    document.querySelector('[data-testid="currentUTCTime"]').textContent = getCurrentUTCTime();
+    
+    // Call the updateUTCTime function initially
+    updateUTCTime();
+    
+    // Update the UTC time every second
+    setInterval(updateUTCTime, 1000);
 });
